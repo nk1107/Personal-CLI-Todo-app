@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"strconv"
+	"task/db"
 )
 
 // doCmd represents the do command
@@ -20,7 +21,13 @@ var doCmd = &cobra.Command{
 				ids = append(ids, id)
 			}
 		}
-		fmt.Println(ids)
+		err := db.DeleteTasks(ids)
+		if err != nil {
+			fmt.Println("something went wrong", err)
+			return
+		}
+		fmt.Println("tasks deleted")
+
 	},
 }
 
